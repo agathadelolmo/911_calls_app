@@ -126,6 +126,7 @@ server <- function(input, output, session) {
   })
 
   # Clic en marcador: calcular rutas y mostrar info
+  # Clic en marcador: calcular rutas y mostrar info
   observeEvent(input$map_marker_click, {
     click <- input$map_marker_click
     if (is.null(click$id)) return()
@@ -145,6 +146,12 @@ server <- function(input, output, session) {
     )
     removeModal()
 
+    # Verificación de coordenadas
+    if (is.null(st_geometry(rutas$hospital$destino)) || is.null(st_geometry(rutas$policia$destino))) {
+      showNotification("⚠️ No se pudieron obtener coordenadas del hospital o la policía", type = "error")
+      return()
+    }
+
     hosp_coords <- st_coordinates(rutas$hospital$destino)
     pol_coords  <- st_coordinates(rutas$policia$destino)
 
@@ -159,47 +166,59 @@ server <- function(input, output, session) {
       addPolylines(
         data = rutas$hospital$route,
         color = "red", weight = 4, opacity = 0.8, group = "rutas",
-        label = lapply(1, function(i) htmltools::HTML(paste0(
-          "Ruta al hospital más cercano<br>",
-          "<b> Duración: </b>", duration_hospital_min, " min<br>",
-          "<b> Distancia: </b>", distance_hospital_km, " km"
-        )))
+        label = htmltools::HTML(paste0(
+          "🏥 Ruta al hospital más cercano<br>",
+          "<b>Duración:</b> ", duration_hospital_min, " min<br>",
+          "<b>Distancia:</b> ", distance_hospital_km, " km"
+        ))
       ) %>%
       addPolylines(
         data = rutas$policia$route,
         color = "blue", weight = 4, opacity = 0.8, group = "rutas",
-        label = lapply(1, function(i) htmltools::HTML(paste0(
-          "Ruta a la comisaría más cercana<br>",
-          "<b> Duración: </b>", duration_police_min, " min<br>",
-          "<b> Distancia: </b>", distance_police_km, " km"
-        )))
+        label = htmltools::HTML(paste0(
+          "👮 Ruta a la comisaría más cercana<br>",
+          "<b>Duración:</b> ", duration_police_min, " min<br>",
+          "<b>Distancia:</b> ", distance_police_km, " km"
+        ))
       ) %>%
       addCircleMarkers(
-        lng = hosp_coords[1],
-        lat = hosp_coords[2],
+        lng = hosp_coords[1], lat = hosp_coords[2],
         color = "red", radius = 8, fillOpacity = 0.9,
-        group = "rutas"
+        group = "rutas",
+        popup = htmltools::HTML(paste0(
+          "🏥 <b>", rutas$hospital$destino$name, "</b><br>",
+          "Dir: ", rutas$hospital$destino$street, "<br>",
+          "CP: ", rutas$hospital$destino$city_zip, "<br>",
+          "Tel: ", rutas$hospital$destino$phone, "<br>",
+          "Web: ", rutas$hospital$destino$website
+        ))
       ) %>%
       addCircleMarkers(
-        lng = pol_coords[1],
-        lat = pol_coords[2],
+        lng = pol_coords[1], lat = pol_coords[2],
         color = "blue", radius = 8, fillOpacity = 0.9,
-        group = "rutas"
+        group = "rutas",
+        popup = htmltools::HTML(paste0(
+          "👮 <b>", rutas$policia$destino$name, "</b><br>",
+          "Dir: ", rutas$policia$destino$street, "<br>",
+          "CP: ", rutas$policia$destino$city_zip, "<br>",
+          "Tel: ", rutas$policia$destino$phone, "<br>",
+          "Web: ", rutas$policia$destino$website
+        ))
       )
 
-    # Actualizar panel lateral con la info
+    # Actualizar panel lateral
     output$info_panel <- renderUI({
       tagList(
-        h5("🔴 Hospital más cercano"),
+        h5("🏥 Hospital más cercano"),
         HTML(paste0(
           "<b>", rutas$hospital$destino$name, "</b><br>",
           "Dir: ", rutas$hospital$destino$street, "<br>",
           "CP: ", rutas$hospital$destino$city_zip, "<br>",
           "Tel:", rutas$hospital$destino$phone, "<br>",
           "Web:", rutas$hospital$destino$website
-          )),
+        )),
         hr(),
-        h5("🔵 Estación de policía más cercana"),
+        h5("👮 Estación de policía más cercana"),
         HTML(paste0(
           "<b>", rutas$policia$destino$name, "</b><br>",
           "Dir: ", rutas$policia$destino$street, "<br>",
@@ -211,10 +230,11 @@ server <- function(input, output, session) {
     })
 
     showNotification(
-      paste0("Rutas y datos actualizados para ", rutas$hospital$destino$name, " y ", rutas$policia$destino$name),
+      paste0("Rutas actualizadas para ", rutas$hospital$destino$name, " y ", rutas$policia$destino$name),
       type = "message"
     )
   })
+
 }
 
 shinyApp(ui, server)
