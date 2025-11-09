@@ -13,7 +13,7 @@ Funcionalidades
 
 Requisitos
 - R (>= 4.0)
-- Firefox (o cualquier navegador compatible con Shiny)
+- Firefox
 
 Paquetes de R necesarios:
 install.packages(c("shiny", "leaflet", "dplyr", "sf", "htmltools", "remotes"))
