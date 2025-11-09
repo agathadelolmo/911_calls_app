@@ -14,8 +14,10 @@ Funcionalidades
 Requisitos
 - R (>= 4.0)
 - Firefox
+- Guardar todos los archivos en un mismo directorio
 
 Paquetes de R necesarios:
+
 install.packages(c("shiny", "leaflet", "dplyr", "sf", "htmltools", "remotes"))
 remotes::install_github("GIScience/openrouteservice-r")
 
@@ -28,7 +30,7 @@ ors_api_key("TU_CLAVE_AQUI")
 
 Uso
 - Haz clic en un marcador de llamada para ver las rutas hacia el hospital y la estación de policía más cercanos.
-- Haz clic en Actualizar para obtener la información más reciente de las llamadas 911.
+- Haz clic en "Actualizar" para obtener la información más reciente de las llamadas 911.
 
 
 --- English ---
@@ -46,9 +48,11 @@ Features
 
 Requirements
 - R (>= 4.0)
-- Firefox (or any browser supported by Shiny)
+- Firefox
+- Save all the files in the same directory
 
 R packages required
+
 install.packages(c("shiny", "leaflet", "dplyr", "sf", "htmltools", "remotes"))
 remotes::install_github("GIScience/openrouteservice-r")
 
@@ -61,4 +65,4 @@ ors_api_key("YOUR_API_KEY_HERE")
 
 Usage
 - Click on a call marker to see the routes to the nearest hospital and police station.
-- Click on actualizar to fetch the latest information on 911 calls
+- Click on "Actualizar" to fetch the latest information on 911 calls
