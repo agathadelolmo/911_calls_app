@@ -4,6 +4,8 @@ APLICACIÓN LLAMADAS 911
 
 Aplicación Shiny interactiva que muestra las llamadas más recientes al 911 en Monroe County, NY y calcula las rutas hacia el hospital y la comisaría de policía más cercanos.
 
+IMPORTANTE: Si una incidencia se ha dado en el mar/lago/río o cualquier lugar inaccesible por coche por la razón que sea, OSR no funciona.
+
 -- Para seguir el mismo flujo de trabajo desde R --
 
 Funcionalidades
@@ -37,6 +39,8 @@ Uso
 911 CALLS APP
 
 Interactive Shiny application that maps the most recent 911 calls in Monroe County, NY and displays routes to the nearest hospital and police station.
+
+IMPORTANT: If an incident has occurred at sea/lake/river or any location inaccessible by car for any reason, OSR does not work.
 
 Note: The app interface is in Spanish.
 
