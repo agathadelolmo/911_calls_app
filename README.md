@@ -1,6 +1,7 @@
 --- Español ---
 
 APLICACIÓN LLAMADAS 911
+Aplicación Shiny interactiva que muestra las llamadas más recientes al 911 en Monroe County, NY y calcula las rutas hacia el hospital y la comisaría de policía más cercanos.
 
 -- Para usar la app --
 
@@ -10,10 +11,6 @@ Nota: Necesitarás una clave API gratuita de OpenRouteService: https://account.h
 
 
 -- Para seguir el mismo flujo de trabajo desde R --
-
-Aplicación Shiny interactiva que muestra las llamadas más recientes al 911 en Monroe County, NY y calcula las rutas hacia el hospital y la comisaría de policía más cercanos.
-
-Nota: La interfaz de la aplicación está en español.
 
 Funcionalidades
 - Visualiza las llamadas 911 con marcadores de colores según el estado
@@ -44,6 +41,10 @@ Uso
 
 911 CALLS APP
 
+Interactive Shiny application that maps the most recent 911 calls in Monroe County, NY and displays routes to the nearest hospital and police station.
+
+Note: The app interface is in Spanish.
+
 -- To use the app --
 
 https://agathadelolmotirado.shinyapps.io/app_emergency_calls/
@@ -51,10 +52,6 @@ https://agathadelolmotirado.shinyapps.io/app_emergency_calls/
 Note: You will need a free OpenRouteService API key: https://account.heigit.org/
 
 -- To follow the same workflow in R --
-
-Interactive Shiny application that maps the most recent 911 calls in Monroe County, NY and displays routes to the nearest hospital and police station.
-
-Note: The app interface is in Spanish.
 
 Features
 - Visualize 911 calls with color-coded markers based on status
