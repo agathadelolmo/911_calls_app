@@ -1,6 +1,15 @@
 --- Español ---
 
-Aplicación Llamadas 911
+APLICACIÓN LLAMADAS 911
+
+-- Para usar la app --
+
+https://agathadelolmotirado.shinyapps.io/app_emergency_calls/
+
+Nota: Necesitarás una clave API gratuita de OpenRouteService: https://account.heigit.org/
+
+
+-- Para seguir el mismo flujo de trabajo deade R --
 
 Aplicación Shiny interactiva que muestra las llamadas más recientes al 911 en Monroe County, NY y calcula las rutas hacia el hospital y la comisaría de policía más cercanos.
 
@@ -35,7 +44,15 @@ Uso
 
 --- English ---
 
-911 Calls App
+911 CALLS APP
+
+-- To use the app --
+
+https://agathadelolmotirado.shinyapps.io/app_emergency_calls/
+
+Note: You will need a free OpenRouteService API key: https://account.heigit.org/
+
+-- To follow the same workflow in R --
 
 Interactive Shiny application that maps the most recent 911 calls in Monroe County, NY and displays routes to the nearest hospital and police station.
 
