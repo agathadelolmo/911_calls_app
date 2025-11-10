@@ -9,7 +9,7 @@ https://agathadelolmotirado.shinyapps.io/app_emergency_calls/
 Nota: Necesitarás una clave API gratuita de OpenRouteService: https://account.heigit.org/
 
 
--- Para seguir el mismo flujo de trabajo deade R --
+-- Para seguir el mismo flujo de trabajo desde R --
 
 Aplicación Shiny interactiva que muestra las llamadas más recientes al 911 en Monroe County, NY y calcula las rutas hacia el hospital y la comisaría de policía más cercanos.
 
