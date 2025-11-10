@@ -108,5 +108,8 @@ calls_sf <- calls_sf %>%
     estado == "ONSCENE" ~ "🟢 EN ESCENA"
   ))
 
+calls_sf <- calls_sf %>%
+  distinct(geometry, .keep_all = TRUE)
+
 saveRDS(calls_sf, "calls_sf.rds")
 message("Scraping completado y guardado en calls_sf.rds")

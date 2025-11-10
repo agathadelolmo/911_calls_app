@@ -120,6 +120,7 @@ server <- function(input, output, session) {
 
     leafletProxy("map", data = new_data) %>%
       clearMarkers() %>%
+      clearGroup("rutas") %>%
       addCircleMarkers(
         fillColor = ~pal(estado),
         fillOpacity = 0.7,
@@ -134,13 +135,13 @@ server <- function(input, output, session) {
         layerId = ~codigo,
         group = "calls"
       )
-  })
 
   # Panel lateral
   output$info_panel <- renderUI({
     tagList(
       p("Haz clic en una llamada en el mapa para ver el hospital y la estación de policía más cercanos.")
     )
+    })
   })
 
   # Clic en marcador: calcular rutas y mostrar info
@@ -169,8 +170,7 @@ server <- function(input, output, session) {
     call_coords <- st_coordinates(call_sel)
 
     leafletProxy("map") %>%
-      clearGroup("rutas") %>%
-      setView(lng =  st_coordinates(call_sel)[1], lat =  st_coordinates(call_sel)[2], zoom = 13)
+      clearGroup("rutas")
 
     hosp_coords <- st_coordinates(rutas$hospital$destino)
     pol_coords  <- st_coordinates(rutas$policia$destino)
