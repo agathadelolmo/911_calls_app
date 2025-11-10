@@ -17,6 +17,13 @@ ui <- fluidPage(
         h4("Información más cercana"),
         uiOutput("info_panel"),
         hr(),
+        textInput(
+          "api_key_input",
+          "🔑 Introduce tu API key de OpenRouteService:",
+          placeholder = "Pega tu clave aquí..."
+        ),
+        actionButton("set_api", "Guardar clave", class = "btn btn-success", style = "width:100%"),
+        hr(),
         actionButton("refresh", "🔄 Actualizar datos", class = "btn btn-primary", style = "width:100%"),
         textOutput("last_update")
       )
@@ -31,6 +38,17 @@ server <- function(input, output, session) {
 
   hospitales <- hospital_data
   policia <- police_data
+
+  api_key_reactiva <- reactiveVal(Sys.getenv("ORS_API_KEY"))
+
+  observeEvent(input$set_api, {
+    if (nchar(input$api_key_input) > 0) {
+      api_key_reactiva(input$api_key_input)
+      showNotification("✅ API key configurada correctamente. Ya puedes calcular rutas.", type = "message")
+    } else {
+      showNotification("⚠️ Introduce una API key válida.", type = "error")
+    }
+  })
 
   cargar_datos <- function() {
     if (file.exists("calls_sf.rds")) {
@@ -139,18 +157,20 @@ server <- function(input, output, session) {
     source("rutas_openroutes.R")
 
     rutas <- calcular_rutas(
-      lon = st_coordinates(call_sel)[1],
-      lat = st_coordinates(call_sel)[2],
-      hospitales = hospitales,
-      policia = policia
+        lon = st_coordinates(call_sel)[1],
+        lat = st_coordinates(call_sel)[2],
+        hospitales = hospitales,
+        policia = policia,
+        api_key = api_key_reactiva()
     )
+
     removeModal()
 
-    # Verificación de coordenadas
-    if (is.null(st_geometry(rutas$hospital$destino)) || is.null(st_geometry(rutas$policia$destino))) {
-      showNotification("⚠️ No se pudieron obtener coordenadas del hospital o la policía", type = "error")
-      return()
-    }
+    call_coords <- st_coordinates(call_sel)
+
+    leafletProxy("map") %>%
+      clearGroup("rutas") %>%
+      setView(lng =  st_coordinates(call_sel)[1], lat =  st_coordinates(call_sel)[2], zoom = 13)
 
     hosp_coords <- st_coordinates(rutas$hospital$destino)
     pol_coords  <- st_coordinates(rutas$policia$destino)

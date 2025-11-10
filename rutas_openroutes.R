@@ -5,7 +5,7 @@ library(dplyr)
 
 
 
-calcular_rutas <- function(lon, lat, hospitales, policia) {
+calcular_rutas <- function(lon, lat, hospitales, policia, api_key) {
 
   origen <- st_sfc(st_point(c(lon, lat)), crs = 4326)
 
@@ -21,7 +21,8 @@ calcular_rutas <- function(lon, lat, hospitales, policia) {
       c(st_coordinates(hospital_sel)[1], st_coordinates(hospital_sel)[2])
     ),
     profile = "driving-car",
-    output = "sf"
+    output = "sf",
+    api_key = api_key
   )
 
   route_p <- openrouteservice::ors_directions(
@@ -30,7 +31,8 @@ calcular_rutas <- function(lon, lat, hospitales, policia) {
       c(st_coordinates(policia_sel)[1], st_coordinates(policia_sel)[2])
     ),
     profile = "driving-car",
-    output = "sf"
+    output = "sf",
+    api_key = api_key
   )
 
   list(
