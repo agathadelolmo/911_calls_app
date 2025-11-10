@@ -32,12 +32,10 @@ remotes::install_github("GIScience/openrouteservice-r")
 
 Configuración
 1) Obtén una clave gratuita de OpenRouteService: https://account.heigit.org/
-2) En RStudio, ejecuta:
-library(openrouteservice)
-ors_api_key("TU_CLAVE_AQUI")
-3) Ejecuta app.R en RStudio para abrir la aplicación Shiny.
+2) Ejecuta app.R en RStudio para abrir la aplicación Shiny.
 
 Uso
+- Añade tu clave API OSR a "🔑 Introduce tu API key de OpenRouteService:".
 - Haz clic en un marcador de llamada para ver las rutas hacia el hospital y la estación de policía más cercanos.
 - Haz clic en "Actualizar" para obtener la información más reciente de las llamadas 911.
 
@@ -75,11 +73,9 @@ remotes::install_github("GIScience/openrouteservice-r")
 
 Setup
 1) Obtain a free OpenRouteService API key: https://account.heigit.org/
-2) In RStudio, run:
-library(openrouteservice)
-ors_api_key("YOUR_API_KEY_HERE")
-3) Launch the Shiny app by opening and running app.R in RStudio.
+2) Launch the Shiny app by opening and running app.R in RStudio.
 
 Usage
+- Add your OSR API key to "🔑 Introduce tu API key de OpenRouteService:".
 - Click on a call marker to see the routes to the nearest hospital and police station.
-- Click on "Actualizar" to fetch the latest information on 911 calls
+- Click on "Actualizar" to fetch the latest information on 911 calls.
